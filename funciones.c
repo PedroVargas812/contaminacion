@@ -1,3 +1,5 @@
+// funciones.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -95,6 +97,23 @@ void editarParametros(Zona *zona) {
     zona->contaminacion_promedio = (zona->pm25 + zona->no2 + zona->so2 + zona->o3 + zona->co) / 5.0;
 }
 
+void calcularPromediosHistoricos(Zona *zonas, const char *archivo) {
+    // Implementar calculo de promedios historicos basado en datos guardados
+}
+
+void generarRecomendaciones(Zona *zona) {
+    printf("\nRecomendaciones para %s:\n", zona->nombre);
+    if (zona->pm25 > LIMITE_PM25) printf("Reducir trafico vehicular.\n");
+    if (zona->no2 > LIMITE_NO2) printf("Controlar emisiones industriales.\n");
+    if (zona->so2 > LIMITE_SO2) printf("Reducir uso de combustibles fosiles.\n");
+    if (zona->o3 > LIMITE_O3) printf("Evitar actividades al aire libre.\n");
+    if (zona->co > LIMITE_CO) printf("Promover transporte publico.\n");
+}
+
+void prediccionContaminacion(Zona *zona) {
+    // Implementar logica de prediccion simple (promedio ponderado)
+}
+
 int archivoExiste(const char *archivo) {
     FILE *fp = fopen(archivo, "r");
     if (fp == NULL) {
@@ -103,3 +122,12 @@ int archivoExiste(const char *archivo) {
     fclose(fp);
     return 1;
 }
+
+void emitirAlertas(Zona *zonas) {
+    for (int i = 0; i < NUM_ZONAS; i++) {
+        if (zonas[i].pm25 > LIMITE_PM25 || zonas[i].no2 > LIMITE_NO2 || zonas[i].so2 > LIMITE_SO2 || zonas[i].o3 > LIMITE_O3 || zonas[i].co > LIMITE_CO) {
+            printf("\nALERTA: La zona %s supera los limites aceptables de contaminacion.\n", zonas[i].nombre);
+        }
+    }
+}
+
